@@ -1,0 +1,138 @@
+## In this project I will write all SQL codes that I have used ##
+
+----------------------------
+
+/* Creating a Table */
+
+CREATE TABLE EmployeeDetails
+  (EmplyoeeID int,
+  FirstName   varchar(50),
+  LastName    varchar(50),
+  Age         int,
+  Gender      varchar(50)
+  )
+
+CREATE TABLE EmployeeSalary
+  (EmployeeID int,
+  JobTitle    varchar(50),
+  Salary      int
+  (
+
+--------------------------------
+
+/* Inserting Values Into Table */
+
+INSERT INTO EmployeeDetails VALUES
+  (1001, 'JIM', 'HALPERT', 30, 'MALE')
+  (1002,	'PAM',	'BEASLY',	30,	'FEMALE')
+  (1003,	'DWIGHT',	'SCHRUTE',	29,	'MALE')
+  (1004,	'ANGELA',	'MARTIN',	31,	'FEMALE')
+  (1005,	'TOBY',	'FLENDERSON',	32,	'MALE')
+  (1006,	'MICHAEL',	'SCOTT',	35, 'MALE')
+  (1007,	'MEREDITH',	'PALMER',	32,	'FEMALE')
+  (1008,	'STANLY',	'HUDSON',	38,	'MALE')
+  (1009,	'KEVIN',	'MALONE',	31,	'MALE')
+
+INSERT INTO EmployeeSalary VALUES
+  (1001,	'Salesman',	45000)
+  (1002,	'Receptionist',	36000)
+  (1003,	'Salesman',  63000)
+  (1004,	'Accountant',	 47000)
+  (1005,	'HR',	 50000)
+  (1006,	'Reginal Manager',	65000)
+  (1007,	'Supplier Relations',	41000)
+  (1008,	'Salesman', 48000)
+  (1009,	'Accountant',	42000)
+
+----------------------------------
+
+/* Select Statement */
+**(AVG, MAX, MIN, COUNT, DISTINCT, TOP, ...)**
+
+SELECT *
+FROM   EpmloyeeDetails
+
+SELECT DISTINCT(Gender)
+FROM   EmployeeDetails
+
+SELECT Age
+FROM   EmployeeDetails
+
+SELECT AVG(Age)
+FROM   EmployeeDetails
+
+------------------------------------
+
+/* Where Statement */
+**(=, <>, <, >, AND, OR, LIKE, NULL, NOT NULL, IN, ...)**
+
+SELECT  *                      --> (Display)
+FROM    EmployeeDetails        --> (Source)
+WHERE   FirstName = 'JIM'      --> (Condition)
+
+WHERE   FirstName <> 'JIM'     --> (will display all FirsteName Except JIM)
+WHERE   Age  >  30
+WHERE   Age  <= 32
+WHERE   Age  >  32  AND  Gender  =  'Male'    --> (both conditions should be applied)
+WHERE   Age  =  35  OR   Gender  =  'Female'  --> (any condition should be applied)
+
+WHERE  LastName  LIKE  'S%'     --> (names starting with S)
+WHERE  LastName  LIKE  '%S%'    --> (names including S)
+WHERE  LastName  LIKE  'S%O%'   --> (names including S and O)
+
+WHERE  FirstName  is NULL       --> (empty data)
+WHERE  FirstName  is NOT NULL   --> (not empty data)
+
+WHERE  FirstName  IN  ('JIM', 'MICHAEL', 'KEVIN')      --> (only these names will be displayed)
+WHERE  FirstName  NOT IN  ('JIM', 'MICHAEL', 'KEVIN')  --> (all names except these will be displayed)
+
+--------------------------------------
+
+/* Group By */
+
+SELECT    JobTitle, SUM(Salary)
+FROM      EmployeeSalary
+GROUP BY  JobTitle               --> (each JobTilte with its total salary will be displayed)
+
+---------------------------------------
+
+/* Order By */
+
+SELECT    JobTitle, SUM(Salary) as TotalSalary
+FROM      EmployeeSalary
+GROUP BY  JobTitle
+ORDER BY  TotalSalary            --> (the displayed result will be ordered by TotalSalary ascending >> ASC, for descending >> DESC)
+
+----------------------------------------
+
+/* Joins */
+**(INNER, LEFT OUTER, RIGHT OUTER, FULL OUTER)**
+
+SELECT      *
+FROM        EmployeeDetails
+INNER JOIN  EmployeeSalary
+ON          EmployeeDetails.EmployeeID = EmployeeSalary.EmployeeID
+
+JOIN  -->  (will merge COLUMNS of different tables to be displayed together)
+
+INNER JOIN       -->  (only connected data of left and right will be displayed)
+LEFT JOIN        -->  (all left data + only connected right data will be displayed)
+RIGHT JOIN       -->  (all right data + only connected left data will be displayed)
+FULL OUTER JOIN  -->  (all data of left and right will be displayed, even NULL data)
+
+-----------------------------------------
+
+/* Union - Union All */
+
+SELECT    A, B, C
+FROM      Table1
+UNION
+SELECT    A, D, E
+FROM      Table2
+
+(A,B,C) and (A,D,E) -->  (should be related in same order because they will be displayed in merged rows)
+
+UNION      -->  (will merge ROWS of different tables to be displayed together)
+UNION ALL  -->  (will display all mixed data even duplicated)
+
+------------------------------------------
