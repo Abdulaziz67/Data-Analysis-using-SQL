@@ -133,6 +133,6 @@ FROM      Table2
 (A,B,C) and (A,D,E) -->  (should be related in same order because they will be displayed in merged rows)
 
 UNION      -->  (will merge ROWS of different tables to be displayed together)
-UNION ALL  -->  (will display all mixed data even duplicated)
+UNION ALL  -->  (will display all mixed data even duplicated values)
 
 ------------------------------------------
