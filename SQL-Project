@@ -136,3 +136,71 @@ UNION      -->  (will merge ROWS of different tables to be displayed together)
 UNION ALL  -->  (will display all mixed data even duplicated values)
 
 ------------------------------------------
+
+/* Case Statement */
+
+SELECT    FirstName, Age,
+CASE
+  WHEN    Age >= 35 THEN  'Old'
+  WHEN    Age <  31 THEN  'Young'
+  ELSE    'MidAge'
+END AS    AgeType
+FROM      EmployeeDetails
+
+CASE STATEMENT  -->  (used to add a new column explaining or specifying a selected condition)
+
+-----------------------------------------
+
+/* Having */
+
+SELECT      JobTitle, AVG(Salary)
+FROM        EmployeeSalary
+GROUP BY    JobTitle
+HAVING      AVG(Salary) > 40000
+
+HAVING  -->  (similar to WHERE role but different in syntax position and reason of use, HAVING is used for AVG, MAX, COUNT, ...)
+
+-----------------------------------------
+
+/* Update */
+
+UPDATE  EmployeeDetails
+SET     Age = 31, Gender = 'Female'
+WHERE   EmployeeID = 1003
+
+------------------------------------------
+
+/* Delete */
+
+DELETE FROM  EmployeeDetails
+WHERE        EmployeeID = 1005
+
+(it is always recommended to RUN what to be deleted before deleting it, so we can see what we are going to delete)
+
+-------------------------------------------
+
+/* Aliasing */
+
+SELECT  FirstName       AS F_name
+FROM    EmployeeDetals  AS EmpDtl
+
+-------------------------------------------
+
+/* CTE - Common Table Expression */
+
+WITH CTE_Employee as
+(
+SELECT  FirstName, LastName, Gender, AVG(Salary)
+FROM    EmployeeDetails  AS  Det
+JOIN    EmployeeSalary   AS  Sal
+  ON    Det.EmployeeID = Sal.EmployeeID
+WHERE   Salary > '45000'
+)
+SELECT  FirstName, AVG(Salary)
+FROM    CTE_Employee
+
+(the purpose of CTE is to extract a small data from the main data, so we come up with a new data name which we can excute later
+with no need to enter the syntax again, in the above example 'CTE_employee' is the new extracted syntax which we just need to enter
+its name for later use)
+
+-------------------------------------------
