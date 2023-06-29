@@ -16,7 +16,7 @@ CREATE TABLE EmployeeSalary
   (EmployeeID int,
   JobTitle    varchar(50),
   Salary      int
-  (
+  )
 
 --------------------------------
 
@@ -26,7 +26,7 @@ INSERT INTO EmployeeDetails VALUES
   (1001, 'JIM', 'HALPERT', 30, 'MALE')
   (1002,	'PAM',	'BEASLY',	30,	'FEMALE')
   (1003,	'DWIGHT',	'SCHRUTE',	29,	'MALE')
-  (1004,	'ANGELA',	'MARTIN',	31,	'FEMALE')
+  (1004,	'ANGELA',	'MARTIN-WY',	31,	'FEMALE')
   (1005,	'TOBY',	'FLENDERSON',	32,	'MALE')
   (1006,	'MICHAEL',	'SCOTT',	35, 'MALE')
   (1007,	'MEREDITH',	'PALMER',	32,	'FEMALE')
@@ -204,3 +204,108 @@ with no need to enter the syntax again, in the above example 'CTE_employee' is t
 its name for later use)
 
 -------------------------------------------
+
+/* Temporary Tables */
+
+CREAT TABLE #Temp_Employee
+(EmployeeID    int,
+JobTitle       varchar(50),
+Salary         int
+)
+<<Excute>>
+
+SELECT  *
+FROM    #Temp_Employee
+<<Excute>>
+
+INSERT INTO  #Temp_Employee  VALUES
+(1010, 'HR', 38000)
+<<Excute>>
+
+(used to gather data from different tables or to do some calculations of the same table with no need to create or save a new table)
+(created the same way as normal table but with adding # to the table name)
+
+----------------------------------------------
+
+/* Trim */
+
+SELECT  EmployeeID, TRIM(EmployeeID)
+FROM    EmployeeSalary
+
+-----------------------------------------------
+
+/* Replace */
+
+SELECT  LastName, REPLACE(LastName, -WY, ' ')
+FROM    EmployeeDetails
+
+MARTIN-WY  -->  MARTIN
+
+------------------------------------------------
+
+/* Substring */
+
+SELECT  SUBSTRING(FirstName, 1, 3)
+FROM    EmployeeDetails
+
+ANGELA  -->  ANG
+
+------------------------------------------------
+
+/* Upper-Lower */
+
+SELECT  FirstName, LOWER(FirstName)
+FROM    EmployeeDetails
+
+SELECT  FirstName, UPPER(FirstName)
+FROM    EmployeeDetails
+
+-------------------------------------------------
+
+/* Subquery */
+
+SELECT  EmployeeID, Salary, (SELECT  AVG(Salary)  FROM EmployeeSalary)  as AllAvgSalary
+FROM    EmployeeSalary
+
+(small query inside the main query)
+
+-------------------------------------------------
+
+/* Concatinate */
+
+SELECT  CONCAT(FirstName, ' ', LastName)
+FROM    EmployeeDetails
+
+(merge tow or more expressions together)
+
+--------------------------------------------------
+
+/* Distinct */
+
+SELECT DISTINCT(JobTitle)
+FROM   EmployeeSalary
+
+(to display the distinguished job title once without repeating it)
+
+---------------------------------------------------
+
+/* Length */
+
+SELECT  FirstName, LEN(FirstName)
+FROM    EmployeeDetails
+
+(to display the total number of first name characters)
+
+-----------------------------------------------------
+
+/* Round */
+
+SELECT  ROUND(Salary*0.92, 1)
+FROM    EmployeeSalary
+
+(to convert Salary from US Dollars to EURO)
+(good for converting  hight, wieght , distance, ...)
+(1 --> number of decimals)
+
+-------------------------------------------------------
+END
